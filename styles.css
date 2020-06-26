@@ -1,3 +1,171 @@
+body {
+    display: grid;
+    grid-template-columns: 45% 45% 10%;
+    grid-template-rows: 100%;
+    background: rgb(1,255,255);
+    background: linear-gradient(118deg, rgba(1,255,255,1) 0%, rgba(157,39,255,1) 49%, rgba(1,255,195,1) 100%);
+    height: 100%;
+    
+    
+}
+
+.completedtaskbody {
+    background: none;
+    background-color: #01ffC3;
+    
+    
+}
+
+h1 {
+    font-size: 48px;
+    color:white;
+    font-weight: 300;
+}
+
+
+
+h1, h2, p, label, button, input {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.nexttaskheader, .nexttaskdate{
+    color:white;
+    font-weight: 300;
+}
+
+
+#checklistwrapper {
+    margin-top: 30px;
+    display: grid;
+    grid-template-rows: auto auto;
+    
+}
+
+h2 {
+    font-weight: 200;
+    font-size: 42px;
+    margin:0 0 20px 0;
+}
+
+.deletebutton, .editbutton {
+    width: 15px;
+    opacity: 0.3;
+}
+
+.completedtask {
+    text-decoration: line-through;
+}
+
+.todowrapper {
+    background-color: white;
+    max-width: 520px;
+    min-width: 400px;
+    min-height: 600px;
+    margin: auto;
+    margin-top: 10%;
+    padding: 30px;
+    box-shadow: 0px 3px 20px 0px rgba(0,0,0,0.32);
+}
+
+.taskitemcontainer {
+    display: grid;
+    grid-template-columns: 80% auto;
+    grid-template-rows: auto;
+    margin:0 0 15px 0;
+    padding-left: 10px;
+    border-left: solid 3px white;
+}
+
+.checkbox, .opentask, .completedtask, .duedate {
+    grid-column: 1/1;
+    grid-row: 1/1;
+    display:inline;
+}
+
+.duedate {
+    display:block;
+    margin: 20px 0 0 30px;
+    opacity: 0.5;
+    font-size: 12px;
+    
+}
+
+.editbutton, .deletebutton {
+    grid-column: 2/2;
+    grid-row: 1/1;
+    cursor: pointer;
+
+}
+
+.opentask, .completedtask {
+    margin-left: 30px;
+}
+
+
 .deletebutton {
-    width: 20px;
+    margin-left: 30px;
+}
+
+#completedtaskscontainer {
+    margin-top: 30px;
+}
+
+.urgent {
+    border-left: solid 2px rgba(157,39,255,1);
+}
+.noturgent {
+    border-left: solid 2px rgba(1,255,195,1);
+}
+.moderate {
+    border-left: solid 2px rgba(1,255,255,1);
+    
+}
+#addTask {
+    border: none;
+    background-color: rgba(157,39,255,1);
+    font-weight: 400;
+    color: white;
+    padding: 6px 10px 6px 10px;
+    margin-left: 5px;
+    border-radius: 20px;
+    border-bottom: 2px solid rgba(1,255,195,1);
+    
+}
+#dateinput {
+    width: 120px;
+    margin-left: 5px;
+    background-color: #f6f6f6;
+    border: solid 1px #c2c2c2;
+    padding: 4px 10px 4px 10px;
+}
+
+#textInput {
+    width: 40%;
+    margin-left: 5px;
+    background-color: #f6f6f6;
+    border: solid 1px #c2c2c2;
+    padding: 5px 10px 6px 10px;
+    
+}
+
+.nextitemcontainer {
+    width: 50%;
+    margin:auto;
+    text-align: center;
+    margin-top: 30vh;
+}
+
+#removecompletedbutton {
+    border: none;
+    background-color: rgba(157,39,255,1);
+    font-weight: 400;
+    color:white;
+    padding: 6px 10px 6px 10px;
+    margin-left: 5px;
+    width: 40%;
+    margin: 20px auto 0 auto;
+    border-radius: 20px;
+    border-bottom: 2px solid rgba(1,255,195,1);
+    
+    
 }
