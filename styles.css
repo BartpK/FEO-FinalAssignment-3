@@ -12,8 +12,6 @@ body {
 .completedtaskbody {
     background: none;
     background-color: #01ffC3;
-    
-    
 }
 
 h1 {
@@ -58,8 +56,8 @@ h2 {
 
 .todowrapper {
     background-color: white;
-    max-width: 520px;
     min-width: 400px;
+    max-width: 400px;
     min-height: 600px;
     margin: auto;
     margin-top: 10%;
@@ -76,7 +74,7 @@ h2 {
     border-left: solid 3px white;
 }
 
-.checkbox, .opentask, .completedtask, .duedate {
+.checkbox, .opentask, .completedtask {
     grid-column: 1/1;
     grid-row: 1/1;
     display:inline;
@@ -84,9 +82,10 @@ h2 {
 
 .duedate {
     display:block;
-    margin: 20px 0 0 30px;
+    margin: 0 0 0 30px;
     opacity: 0.5;
     font-size: 12px;
+    grid-column: 1/1;
     
 }
 
@@ -167,5 +166,30 @@ h2 {
     border-radius: 20px;
     border-bottom: 2px solid rgba(1,255,195,1);
     
+    
+}
+
+@media only screen and (max-width: 1200px) {
+    body {
+     grid-template-columns: auto;   
+    }
+    .nextitemwrapper {
+        display: none;
+    }
+    .todowrapper {
+        min-height: 600px;
+        margin: auto;
+        min-width: 0px;
+    }
+    #dateinput {
+        width: 10%;
+    }
+    #textInput {
+        width: 50%;
+    }
+
+    #addTask {
+     width: 15%;    
+    }
     
 }
