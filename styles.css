@@ -4,9 +4,7 @@ body {
     grid-template-rows: 100%;
     background: rgb(1,255,255);
     background: linear-gradient(118deg, rgba(1,255,255,1) 0%, rgba(157,39,255,1) 49%, rgba(1,255,195,1) 100%);
-    height: 100%;
-    
-    
+    min-height: 100vh; 
 }
 
 .completedtaskbody {
@@ -20,8 +18,6 @@ h1 {
     font-weight: 300;
 }
 
-
-
 h1, h2, p, label, button, input {
     font-family: 'Source Sans Pro', sans-serif;
 }
@@ -31,7 +27,6 @@ h1, h2, p, label, button, input {
     font-weight: 300;
 }
 
-
 #checklistwrapper {
     margin-top: 30px;
     display: grid;
@@ -40,9 +35,9 @@ h1, h2, p, label, button, input {
 }
 
 h2 {
-    font-weight: 200;
+    font-weight: 400;
     font-size: 42px;
-    margin:0 0 20px 0;
+    margin:0 0 20px 0;   
 }
 
 .deletebutton, .editbutton {
@@ -59,10 +54,10 @@ h2 {
     min-width: 400px;
     max-width: 400px;
     min-height: 600px;
-    margin: auto;
-    margin-top: 10%;
+    margin: 10% auto 10% auto;
     padding: 30px;
     box-shadow: 0px 3px 20px 0px rgba(0,0,0,0.32);
+    animation: fade-in 500ms ease-out 200ms both;
 }
 
 .taskitemcontainer {
@@ -86,20 +81,17 @@ h2 {
     opacity: 0.5;
     font-size: 12px;
     grid-column: 1/1;
-    
 }
 
 .editbutton, .deletebutton {
     grid-column: 2/2;
     grid-row: 1/1;
     cursor: pointer;
-
 }
 
 .opentask, .completedtask {
     margin-left: 30px;
 }
-
 
 .deletebutton {
     margin-left: 30px;
@@ -128,8 +120,9 @@ h2 {
     margin-left: 5px;
     border-radius: 20px;
     border-bottom: 2px solid rgba(1,255,195,1);
-    
+    transition: background-color 250ms, color 250ms, border-bottom 250ms;
 }
+
 #dateinput {
     width: 120px;
     margin-left: 5px;
@@ -144,14 +137,12 @@ h2 {
     background-color: #f6f6f6;
     border: solid 1px #c2c2c2;
     padding: 5px 10px 6px 10px;
-    
 }
 
 .nextitemcontainer {
-    width: 50%;
-    margin:auto;
+    width: 70%;
+    margin:30% auto auto auto;
     text-align: center;
-    margin-top: 30vh;
 }
 
 #removecompletedbutton {
@@ -165,8 +156,18 @@ h2 {
     margin: 20px auto 0 auto;
     border-radius: 20px;
     border-bottom: 2px solid rgba(1,255,195,1);
-    
-    
+    transition: background-color 250ms, color 250ms, border-bottom 250ms;
+}
+
+#removecompletedbutton:hover, #addTask:hover {
+    background-color: rgba(1,255,195,1);
+    color: rgba(157,39,255,1);
+    border-bottom: 2px solid rgba(157,39,255,1);
+}
+
+.nextitemdiv {
+    margin-top: 0px;
+    animation: slide-down 700ms ease-in-out both;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -178,7 +179,8 @@ h2 {
     }
     .todowrapper {
         min-height: 600px;
-        margin: auto;
+        margin: 10% auto 10% auto;
+        margin-top: 10%;
         min-width: 0px;
     }
     #dateinput {
@@ -191,5 +193,19 @@ h2 {
     #addTask {
      width: 15%;    
     }
-    
+    .nextitemcontainer {
+        display:none;
+    } 
+}
+
+@keyframes fade-in {
+    from{opacity: 0};
+    to{opacity: 1};
+}
+
+@keyframes slide-down {
+    from{margin-top: -700px;
+    opacity: 0;}
+    to{margin-top: 0px;
+    opacity: 1;};
 }

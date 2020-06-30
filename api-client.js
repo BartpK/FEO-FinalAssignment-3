@@ -28,7 +28,7 @@ const updateTaskStatus = async (id, taskStatus, taskDescription, duedate) => {
         await fetch(`https://to-dolist-e1881.firebaseio.com/Apps/Tasklist/${id}.json`, { method: 'PUT', body: newStatusObject })
         getData();
     } else {
-        reward();
+
         const newStatusObject = `{ "description": "${taskDescription}", "done": true, "due_date":"${duedate}" }`
         await fetch(`https://to-dolist-e1881.firebaseio.com/Apps/Tasklist/${id}.json`, { method: 'PUT', body: newStatusObject })
         getData();
