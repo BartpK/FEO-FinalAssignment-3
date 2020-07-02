@@ -1,6 +1,6 @@
 //GET data from database. Added due_date as object key
 const getData = async () => {
-    const response = await fetch('https://to-dolist-e1881.firebaseio.com/Apps/Tasklist.json');
+    const response = await fetch('https://wincacademydatabase.firebaseio.com/bart/tasks.json');
     const data = await response.json();
     let tasks = Object.keys(data).map(key => ({
         id: key,
@@ -17,7 +17,8 @@ const getData = async () => {
 const updateTask = async (id, taskDescription, duedate) => {
     const taskPrompt = prompt("Please change your task description", taskDescription);
     const newTaskObject = `{ "description": "${taskPrompt}", "done": false, "due_date": "${duedate}" }`
-    await fetch(`https://to-dolist-e1881.firebaseio.com/Apps/Tasklist/${id}.json`, { method: 'PUT', body: newTaskObject })
+    console.log(newTaskObject)
+    await fetch(`https://wincacademydatabase.firebaseio.com/bart/tasks/${id}.json`, { method: 'PUT', body: newTaskObject })
     getData();
 }
 
@@ -25,18 +26,18 @@ const updateTask = async (id, taskDescription, duedate) => {
 const updateTaskStatus = async (id, taskStatus, taskDescription, duedate) => {
     if (taskStatus === true) {
         const newStatusObject = `{ "description": "${taskDescription}", "done": false, "due_date":"${duedate}" }`
-        await fetch(`https://to-dolist-e1881.firebaseio.com/Apps/Tasklist/${id}.json`, { method: 'PUT', body: newStatusObject })
+        await fetch(`https://wincacademydatabase.firebaseio.com/bart/tasks/${id}.json`, { method: 'PUT', body: newStatusObject })
         getData();
     } else {
 
         const newStatusObject = `{ "description": "${taskDescription}", "done": true, "due_date":"${duedate}" }`
-        await fetch(`https://to-dolist-e1881.firebaseio.com/Apps/Tasklist/${id}.json`, { method: 'PUT', body: newStatusObject })
+        await fetch(`https://wincacademydatabase.firebaseio.com/bart/tasks/${id}.json`, { method: 'PUT', body: newStatusObject })
         getData();
     }
 };
 
 //Function to delete task with DELETE request
 const deleteTask = async (id) => {
-    await fetch(`https://to-dolist-e1881.firebaseio.com/Apps/Tasklist/${id}.json`, { method: 'DELETE' })
+    await fetch(`https://wincacademydatabase.firebaseio.com/bart/tasks/${id}.json`, { method: 'DELETE' })
     getData();
 }

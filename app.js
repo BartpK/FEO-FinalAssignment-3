@@ -16,7 +16,7 @@ document.querySelector("#addTask").addEventListener("click", async () => {
   if (dateInput.value == "" || taskInput.value == "") {
     alert("Please enter a task and a due date");
   } else {
-    await fetch("https://to-dolist-e1881.firebaseio.com/Apps/Tasklist.json", {
+    await fetch("https://wincacademydatabase.firebaseio.com/bart/tasks.json", {
       method: "POST",
       body: `{ "description": "${taskInput.value}", "done": false, "due_date": "${dateInput.value}" }`,
     });
