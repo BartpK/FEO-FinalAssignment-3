@@ -10,7 +10,23 @@ const removeCompleted = document.querySelector("#removecompletedbutton");
 const nextItemContainer = document.querySelector(".nextitemcontainer");
 const nextItemDiv = document.querySelector(".nextitemdiv");
 
-document.querySelector("#addTask").addEventListener("click", addTask)
+//function to update to-do list after each addition, remove, update
+const updateList = async () => {
+  const data = await getData();
+  if (data !== null) {
+    let tasks = Object.keys(data).map(key => ({
+      id: key,
+      description: data[key].description,
+      done: data[key].done,
+      due_date: data[key].due_date
+    }));
+    tasks.sort((a, b) => (a.due_date > b.due_date) ? 1 : -1)
+    buildList(tasks);
+  } else {
+    tasks = [{ description: "Your list is empty. Nice job!", done: false, due_date: "2020-01-01" }];
+    buildList(tasks);
+  }
+}
 
 //Function to rewrite standard date format YYYY-MM-DD to DD/MM/YYYY
 const reverseDate = (inputString) => {
@@ -29,7 +45,7 @@ const reverseDate = (inputString) => {
   );
 };
 
-//Function to display to-do list items based on data from getData function (in api-client.js)
+//Function to display to-do list items
 const buildList = (tasks) => {
   openTasksContainer.innerHTML = "";
   completedTasksContainer.innerHTML = "";
@@ -85,19 +101,18 @@ const buildList = (tasks) => {
       }
 
       taskItemContainer.appendChild(editButton);
-
       taskName.className = "opentask";
       openTasksContainer.appendChild(taskItemContainer);
     }
     //add event listeners for delete and edit buttons, and checkbox
     deleteButton.addEventListener("click", () => {
-      deleteTask(task.id);
+      deleteTask(task);
     });
     editButton.addEventListener("click", () => {
-      updateTask(task.id, task.description, task.due_date);
+      updateTask(task);
     });
     taskItem.addEventListener("click", () => {
-      updateTaskStatus(task.id, task.done, task.description, task.due_date);
+      updateTaskStatus(task);
     });
   });
 
@@ -107,7 +122,6 @@ const buildList = (tasks) => {
   });
 
   //Displays current most urgent task in right side of page
-
   if (
     document.querySelector(".nexttask").innerHTML === nextToDo[0].description
   ) {
@@ -135,18 +149,49 @@ const buildList = (tasks) => {
     nextItemContainer.appendChild(nextItemDiv);
   }
 
-  //Creates array of completed tasks
-  const tasksToRemove = tasks.filter((task) => {
-    return task.done == true;
-  });
-
-  //Calls the delete task function for each item in the array of completed items.
+  //Calls the delete task function for each item an array of completed items.
   removeCompleted.addEventListener("click", () => {
-    tasksToRemove.forEach((task) => {
-      deleteTask(task.id);
+    tasks.filter((task) => {
+      return task.done == true;
+    }).forEach((task) => {
+      deleteTask(task);
     });
   });
 };
 
-//Calls getData function to populate the list when the page loads
-getData();
+//function to add new to-do item
+document.querySelector("#addTask").addEventListener("click", async () => {
+  if (dateInput.value == "" || taskInput.value == "") {
+    alert("Please enter a task and a due date");
+  } else {
+    const taskObject = `{ "description": "${taskInput.value}", "done": false, "due_date": "${dateInput.value}" }`;
+    taskInput.value = "";
+    await postTask(taskObject);
+    updateList();
+  }
+})
+
+//Function to update task description
+const updateTask = async (task) => {
+  const taskPrompt = prompt("Please change your task description", task.description);
+  if (taskPrompt) {
+    const updatedTaskObject = `{ "description": "${taskPrompt}", "done": false, "due_date": "${task.due_date}" }`
+    await postUpdatedTask(updatedTaskObject, task.id);
+    updateList()
+  };
+}
+//Function to update task status
+const updateTaskStatus = async (task) => {
+  const updatedTaskObject = `{ "description": "${task.description}", "done": ${!task.done}, "due_date": "${task.due_date}" }`
+  console.log(updatedTaskObject)
+  await postUpdatedTask(updatedTaskObject, task.id);
+  updateList();
+}
+//Function to delete task
+const deleteTask = async (task) => {
+  await deleteFromDatabase(task.id);
+  updateList();
+}
+
+//Calls updateList function to populate the list when the page loads
+updateList();

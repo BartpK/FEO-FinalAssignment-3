@@ -1,3 +1,12 @@
+* {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+*::selection {
+  background-color: rgba(157, 39, 255, 1);
+  color: white;
+}
+
 body {
   display: grid;
   grid-template-columns: 0.6fr 1fr;
@@ -12,24 +21,10 @@ body {
   min-height: 100vh;
 }
 
-.completedtaskbody {
-  background: none;
-  background-color: #01ffc3;
-}
-
 h1 {
   font-size: 42px;
   color: white;
   font-weight: 300;
-}
-
-h1,
-h2,
-p,
-label,
-button,
-input {
-  font-family: "Source Sans Pro", sans-serif;
 }
 
 .nexttaskheader,
@@ -39,21 +34,26 @@ input {
 }
 
 #checklistwrapper {
-  margin-top: 30px;
+  margin-top: 50px;
+  margin-bottom: 20px;
   display: grid;
   grid-template-rows: auto auto;
 }
 
 h2 {
-  font-weight: 400;
+  font-weight: 200;
   font-size: 42px;
-  margin: 0 0 20px 0;
+  margin: 0 0 30px 0;
 }
 
 .deletebutton,
 .editbutton {
   width: 15px;
   opacity: 0.3;
+}
+
+.userinputs:focus {
+  outline-color: rgba(157, 39, 255, 1);
 }
 
 .completedtask {
@@ -64,12 +64,12 @@ h2 {
   background-color: white;
   min-width: 400px;
   max-width: 400px;
-  min-height: 600px;
-  margin: 10% auto 10% auto;
+  margin: 10% auto auto auto;
   padding: 30px;
   box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.32);
   animation: fade-in 500ms ease-out 200ms both;
   grid-column: 1/1;
+  border-radius: 7px;
 }
 
 .taskitemcontainer {
@@ -102,6 +102,7 @@ h2 {
   grid-column: 2/2;
   grid-row: 1/1;
   cursor: pointer;
+  text-align: end;
 }
 
 .opentask,
@@ -160,6 +161,7 @@ h2 {
   text-align: center;
   grid-column: 2/2;
   grid-row: 1/1;
+  max-width: 300px;
 }
 
 #removecompletedbutton {
@@ -188,63 +190,6 @@ h2 {
   animation: slide-down 700ms ease-in-out both;
 }
 
-@media only screen and (max-width: 1200px) {
-  body {
-    grid-template-columns: auto;
-  }
-  .nextitemwrapper {
-    display: none;
-  }
-  .todowrapper {
-    min-height: 600px;
-    margin: 10% auto 10% auto;
-    margin-top: 10%;
-    min-width: 0px;
-  }
-  #dateinput {
-    width: 10%;
-  }
-  #textInput {
-    width: 50%;
-  }
-
-  #addTask {
-    width: 15%;
-  }
-  .nextitemcontainer {
-    display: none;
-  }
-  .animation-container div {
-    display: none;
-    
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes scale-up {
-  from {scale: 0.4}
-  to {scale: 1}
-}
-
-@keyframes slide-down {
-  from {
-    margin-top: -700px;
-    opacity: 0;
-  }
-  to {
-    margin-top: 0px;
-    opacity: 1;
-  }
-}
-
 .animation-container {
   margin: auto;
   display: grid;
@@ -253,7 +198,6 @@ h2 {
   grid-column: 2/2;
   grid-row: 1/1;
   z-index: -1;
-  
 }
 
 .inner-rim, .outer-rim, .middle-rim {
@@ -354,5 +298,60 @@ h2 {
   }
   to {
     transform: rotateZ(360deg);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-up {
+  from {scale: 0.4}
+  to {scale: 1}
+}
+
+@keyframes slide-down {
+  from {
+    margin-top: -700px;
+    opacity: 0;
+  }
+  to {
+    margin-top: 0px;
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  body {
+    grid-template-columns: auto;
+  }
+  .nextitemwrapper {
+    display: none;
+  }
+  .todowrapper {
+    margin: 10% auto 10% auto;
+    margin-top: 10%;
+    min-width: 0px;
+  }
+  #dateinput {
+    width: 10%;
+  }
+  #textInput {
+    width: 50%;
+  }
+
+  #addTask {
+    width: 15%;
+  }
+  .nextitemcontainer {
+    display: none;
+  }
+  .animation-container div {
+    display: none;
   }
 }

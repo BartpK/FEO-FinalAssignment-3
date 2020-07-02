@@ -1,59 +1,40 @@
-//GET data from database. Added due_date as object key
+//GET data from database
 const getData = async () => {
-    const response = await fetch('https://wincacademydatabase.firebaseio.com/bart/tasks.json');
-    const data = await response.json();
-    let tasks = Object.keys(data).map(key => ({
-        id: key,
-        description: data[key].description,
-        done: data[key].done,
-        due_date: data[key].due_date
-    }));
-    tasks.sort((a, b) => (a.due_date > b.due_date) ? 1 : -1)
-    //Calls buildList function with tasks array as argument.
-    buildList(tasks);
+    try {
+        const response = await fetch('https://wincacademydatabase.firebaseio.com/bart/tasks.json');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 //function to add task to database
-const addTask = async () => {
-    if (dateInput.value == "" || taskInput.value == "") {
-        alert("Please enter a task and a due date");
-    } else {
+const postTask = async (taskObject) => {
+    try {
         await fetch("https://wincacademydatabase.firebaseio.com/bart/tasks.json", {
             method: "POST",
-            body: `{ "description": "${taskInput.value}", "done": false, "due_date": "${dateInput.value}" }`,
+            body: taskObject,
         });
-        taskInput.value = "";
+    } catch (error) {
+        console.log(error);
     }
-    getData();
 }
 
-
-
-
-//Function to update task name via prompt, and pushes to database with PUT request
-const updateTask = async (id, taskDescription, duedate) => {
-    const taskPrompt = prompt("Please change your task description", taskDescription);
-    const newTaskObject = `{ "description": "${taskPrompt}", "done": false, "due_date": "${duedate}" }`
-    console.log(newTaskObject)
-    await fetch(`https://wincacademydatabase.firebaseio.com/bart/tasks/${id}.json`, { method: 'PUT', body: newTaskObject })
-    getData();
-}
-
-//Function to update task status via PUT request based on user clicking checkbox
-const updateTaskStatus = async (id, taskStatus, taskDescription, duedate) => {
-    if (taskStatus === true) {
-        const newStatusObject = `{ "description": "${taskDescription}", "done": false, "due_date":"${duedate}" }`
-        await fetch(`https://wincacademydatabase.firebaseio.com/bart/tasks/${id}.json`, { method: 'PUT', body: newStatusObject })
-        getData();
-    } else {
-        const newStatusObject = `{ "description": "${taskDescription}", "done": true, "due_date":"${duedate}" }`
-        await fetch(`https://wincacademydatabase.firebaseio.com/bart/tasks/${id}.json`, { method: 'PUT', body: newStatusObject })
-        getData();
+//Function to update description or status
+const postUpdatedTask = async (updatedTaskObject, id) => {
+    try {
+        await fetch(`https://wincacademydatabase.firebaseio.com/bart/tasks/${id}.json`, { method: 'PUT', body: updatedTaskObject })
+    } catch (error) {
+        console.log(error)
     }
-};
+}
 
 //Function to delete task with DELETE request
-const deleteTask = async (id) => {
-    await fetch(`https://wincacademydatabase.firebaseio.com/bart/tasks/${id}.json`, { method: 'DELETE' })
-    getData();
+const deleteFromDatabase = async (id) => {
+    try {
+        await fetch(`https://wincacademydatabase.firebaseio.com/bart/tasks/${id}.json`, { method: 'DELETE' })
+    } catch (error) {
+        console.log(error)
+    }
 }
