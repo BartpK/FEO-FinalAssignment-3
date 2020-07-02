@@ -214,6 +214,10 @@ h2 {
   .nextitemcontainer {
     display: none;
   }
+  .animation-container div {
+    display: none;
+    
+  }
 }
 
 @keyframes fade-in {
@@ -223,6 +227,11 @@ h2 {
   to {
     opacity: 1;
   }
+}
+
+@keyframes scale-up {
+  from {scale: 0.4}
+  to {scale: 1}
 }
 
 @keyframes slide-down {
@@ -244,7 +253,13 @@ h2 {
   grid-column: 2/2;
   grid-row: 1/1;
   z-index: -1;
+  
 }
+
+.inner-rim, .outer-rim, .middle-rim {
+  animation: fade-in 2s;
+}
+
 .core {
   width: 100px;
   height: 100px;
@@ -288,7 +303,7 @@ h2 {
   position: absolute;
   margin: -78px;
   transform-origin: 230px 230px;
-  animation: rotate 11s infinite linear;
+  animation: rotate 15s infinite linear, fade-in 2s;
 }
 
 .planet-box {
@@ -297,7 +312,7 @@ h2 {
   position: absolute;
   margin: -78px;
   transform-origin: 230px 230px;
-  animation: rotate 11s infinite linear;
+  animation: rotate 15s infinite linear, fade-in 2s;
 }
 
 .moon {
@@ -307,7 +322,7 @@ h2 {
   background-color: rgba(1, 255, 255, 1);
   margin: -17px;
   transform-origin: 35px 35px;
-  animation: rotate 3s infinite linear;
+  animation: rotate 5s infinite linear, fade-in 2s;
 }
 
 .middle-planet {
@@ -319,7 +334,7 @@ h2 {
   margin: -17px;
   transform-origin: 167px 167px;
   transform: rotateZ(90deg);
-  animation: rotate 8s infinite linear;
+  animation: rotate 9s infinite linear, fade-in 2s;
 }
 
 .inner-planet {
@@ -330,7 +345,7 @@ h2 {
   position: absolute;
   margin: 35px;
   transform-origin: 117px 117px;
-  animation: rotate 5s infinite linear;
+  animation: rotate 6s infinite linear, fade-in 2s;
 }
 
 @keyframes rotate {

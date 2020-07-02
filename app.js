@@ -1,4 +1,3 @@
-const body = document.querySelector("body");
 const today = new Date();
 const openTasksContainer = document.querySelector("#opentaskscontainer");
 const completedTasksContainer = document.querySelector(
@@ -11,19 +10,7 @@ const removeCompleted = document.querySelector("#removecompletedbutton");
 const nextItemContainer = document.querySelector(".nextitemcontainer");
 const nextItemDiv = document.querySelector(".nextitemdiv");
 
-//Checks for input in text and date fields. Sends post request with user input. Starts getData function to retrieve updated data.
-document.querySelector("#addTask").addEventListener("click", async () => {
-  if (dateInput.value == "" || taskInput.value == "") {
-    alert("Please enter a task and a due date");
-  } else {
-    await fetch("https://wincacademydatabase.firebaseio.com/bart/tasks.json", {
-      method: "POST",
-      body: `{ "description": "${taskInput.value}", "done": false, "due_date": "${dateInput.value}" }`,
-    });
-    taskInput.value = "";
-  }
-  getData();
-});
+document.querySelector("#addTask").addEventListener("click", addTask)
 
 //Function to rewrite standard date format YYYY-MM-DD to DD/MM/YYYY
 const reverseDate = (inputString) => {

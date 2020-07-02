@@ -13,6 +13,23 @@ const getData = async () => {
     buildList(tasks);
 }
 
+//function to add task to database
+const addTask = async () => {
+    if (dateInput.value == "" || taskInput.value == "") {
+        alert("Please enter a task and a due date");
+    } else {
+        await fetch("https://wincacademydatabase.firebaseio.com/bart/tasks.json", {
+            method: "POST",
+            body: `{ "description": "${taskInput.value}", "done": false, "due_date": "${dateInput.value}" }`,
+        });
+        taskInput.value = "";
+    }
+    getData();
+}
+
+
+
+
 //Function to update task name via prompt, and pushes to database with PUT request
 const updateTask = async (id, taskDescription, duedate) => {
     const taskPrompt = prompt("Please change your task description", taskDescription);
@@ -29,7 +46,6 @@ const updateTaskStatus = async (id, taskStatus, taskDescription, duedate) => {
         await fetch(`https://wincacademydatabase.firebaseio.com/bart/tasks/${id}.json`, { method: 'PUT', body: newStatusObject })
         getData();
     } else {
-
         const newStatusObject = `{ "description": "${taskDescription}", "done": true, "due_date":"${duedate}" }`
         await fetch(`https://wincacademydatabase.firebaseio.com/bart/tasks/${id}.json`, { method: 'PUT', body: newStatusObject })
         getData();
