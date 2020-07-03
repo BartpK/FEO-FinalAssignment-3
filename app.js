@@ -6,7 +6,7 @@ const completedTasksContainer = document.querySelector(
 const taskInput = document.querySelector("#textInput");
 const dateInput = document.querySelector("#dateinput");
 const nextTask = document.querySelector(".nextitem");
-const removeCompleted = document.querySelector("#removecompletedbutton");
+const removeCompletedButton = document.querySelector("#removecompletedbutton");
 const nextItemContainer = document.querySelector(".nextitemcontainer");
 const nextItemDiv = document.querySelector(".nextitemdiv");
 
@@ -149,16 +149,17 @@ const buildList = (tasks) => {
     nextItemContainer.appendChild(nextItemDiv);
   }
 
-  //Calls the delete task function for each item an array of completed items.
-  removeCompleted.addEventListener("click", () => {
-    tasks.filter((task) => {
-      return task.done == true;
-    }).forEach((task) => {
-      deleteTask(task);
-    });
-  });
-};
 
+
+  //Creates array of completed tasks
+  let completedTasks = tasks.filter((task) => {
+    return task.done == true;
+  })
+
+  removeCompletedButton.addEventListener("click", () => {
+    removeCompleted(completedTasks)
+  });
+}
 //function to add new to-do item
 document.querySelector("#addTask").addEventListener("click", async () => {
   if (dateInput.value == "" || taskInput.value == "") {
@@ -171,6 +172,12 @@ document.querySelector("#addTask").addEventListener("click", async () => {
   }
 })
 
+//function to remove all completed list items
+const removeCompleted = (completedItems) => {
+  completedItems.forEach(item => {
+    deleteTask(item)
+  })
+}
 //Function to update task description
 const updateTask = async (task) => {
   const taskPrompt = prompt("Please change your task description", task.description);
@@ -183,7 +190,6 @@ const updateTask = async (task) => {
 //Function to update task status
 const updateTaskStatus = async (task) => {
   const updatedTaskObject = `{ "description": "${task.description}", "done": ${!task.done}, "due_date": "${task.due_date}" }`
-  console.log(updatedTaskObject)
   await postUpdatedTask(updatedTaskObject, task.id);
   updateList();
 }
