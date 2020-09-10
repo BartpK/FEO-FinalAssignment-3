@@ -24,6 +24,7 @@ const updateList = async () => {
     buildList(tasks);
   } else {
     tasks = [{ description: "Your list is empty. Nice job!", done: false, due_date: "2020-01-01" }];
+
     buildList(tasks);
   }
 }
@@ -199,5 +200,10 @@ const deleteTask = async (task) => {
   updateList();
 }
 
-//Calls updateList function to populate the list when the page loads
-updateList();
+//initializes the app. Calls resetDatabase to clear database and update with standard listitems.
+
+(async () => {
+  await clearDatabase();
+  await populateDatabase();
+})()
+
